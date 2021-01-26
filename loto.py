@@ -60,15 +60,28 @@ from random import randint, shuffle
 
 '''создать список списков из 3 элементов по 9 значений, 5 значений это числа от 1 до 90, все 15 чисел уникальны
 '''
-row = []
-row_list = []
-for number in range(3):
-    for index in range(5):
-        row_list.append(randint(1, 90))
-        row_list.append(' ')
-    row.append(row_list.copy())
-    row_list.clear()
-print(row)
+
+row_set_row = []
+row_set = []
+for line in range(1, 10):
+    for index in range(3):
+        row_set_row.append(randint((1 * line) if line == 1 else (10 * line - 10), 10 * line))
+        if randint (0, 3) == 0:
+            row_set_row.pop ()
+            row_set_row.append (' ')
+    row_set.append(row_set_row.copy())
+    row_set_row.clear()
+print(row_set)
+
+# row = []
+# row_list = []
+# for number in range(3):
+#     for index in range(5):
+#         row_list.append(randint(1, 90))
+#         row_list.append(' ')
+#     row.append(row_list.copy())
+#     row_list.clear()
+# print(row)
 # list_1 = [element for element in randint(1, 90))]
 # shuffle(list_1)
 # print(list_1)
