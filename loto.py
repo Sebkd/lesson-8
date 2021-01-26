@@ -59,7 +59,7 @@
 from random import randint, shuffle
 
 '''создать список списков из 3 элементов по 9 значений, 5 значений это числа от 1 до 90, все 15 чисел уникальны
-12 нулей в списке списков, по 4 в списке, при этом 3 нуля с одинаковым индексом не допусается, и в каждом списке 
+12 нулей в списке списков, по 4 в списке, при этом 3 нуля с одинаковым индексом не допусается, и в списках 
 на одном индексе должен быть хоть один ноль
 '''
 
@@ -92,11 +92,26 @@ def more_spaces (line_one, line_two, line_three):
         else:
             line_one[rand_number] = ' '
     return line_one
+'''
+функция выдачи на экран
+'''
+def show_card (array_of_line):
+    show_view = '--------------------------' + '\n'
+    for line in array_of_line:
+        answer = ''
+        for element in line:
+            if len(str(element)) == 2:
+                answer += ''.join(str(element)) + ' '
+            else:
+                answer += ' ' + ''.join(str(element)) + ' '
+        show_view += answer + '\n'
+    show_view += '--------------------------' + '\n'
+    return show_view
 
 for count in range(3):
     more_spaces(card_row[count], card_row[(count - 2) if count == 2 else (count + 1)],
                 card_row[(count + 2) if count == 0 else (count - 1)])
 
-for line in card_row:
-    print(line)
+print(show_card(card_row))
+
 
