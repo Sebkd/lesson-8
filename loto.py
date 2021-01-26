@@ -59,32 +59,44 @@
 from random import randint, shuffle
 
 '''создать список списков из 3 элементов по 9 значений, 5 значений это числа от 1 до 90, все 15 чисел уникальны
+12 нулей в списке списков, по 4 в списке, при этом 3 нуля с одинаковым индексом не допусается, и в каждом списке 
+на одном индексе должен быть хоть один ноль
 '''
 
-row_set_row = []
-row_set = []
-for line in range(1, 10):
-    for index in range(3):
-        row_set_row.append(randint((1 * line) if line == 1 else (10 * line - 10), 10 * line))
-        if randint (0, 3) == 0:
-            row_set_row.pop ()
-            row_set_row.append (' ')
-    row_set.append(row_set_row.copy())
-    row_set_row.clear()
-print(row_set)
+row_90 = [element for element in range(1, 91)]
+card_row = [[], [], []]
+for element in range(0, 63, 7):
+    (card_row[0]).append(row_90.pop(randint(element, (element + 9) if element < 53 else (element + 9))))
+    (card_row[1]).append(row_90.pop(randint(element, (element + 8) if element < 53 else (element + 8))))
+    (card_row[2]).append(row_90.pop(randint(element, (element + 7) if element < 53 else (element + 7))))
 
-# row = []
-# row_list = []
-# for number in range(3):
-#     for index in range(5):
-#         row_list.append(randint(1, 90))
-#         row_list.append(' ')
-#     row.append(row_list.copy())
-#     row_list.clear()
-# print(row)
-# list_1 = [element for element in randint(1, 90))]
-# shuffle(list_1)
-# print(list_1)
-# card = [element for element in range(randint(1, 90)]
-# shuffle(original_list)
-# print(f'Original list = {original_list} \n')
+for count in range(9):
+    '''
+    раскидываем первые 9 пробелов рандомно по рядам
+    '''
+    rand_number = randint(1, 3)
+    if (rand_number == 1 and (card_row[0]).count(' ') < 4):
+        (card_row[0])[count] = ' '
+    elif (rand_number == 2 and (card_row[1]).count(' ') < 4):
+        (card_row[1])[count] = ' '
+    elif (rand_number == 3 and (card_row[2]).count(' ') < 4):
+        (card_row[2])[count] = ' '
+'''
+Добиваем чтобы в каждом ряду было не менее 4 пробела, с условием чтобы не было рядом три пробела сверху-вниз
+'''
+def more_spaces (line_one, line_two, line_three):
+    while line_one.count (' ') < 4:
+        rand_number = randint (0, 8)
+        if (line_two[rand_number] == ' ' and line_three[rand_number] == ' '):
+            continue
+        else:
+            line_one[rand_number] = ' '
+    return line_one
+
+for count in range(3):
+    more_spaces(card_row[count], card_row[(count - 2) if count == 2 else (count + 1)],
+                card_row[(count + 2) if count == 0 else (count - 1)])
+
+for line in card_row:
+    print(line)
+
